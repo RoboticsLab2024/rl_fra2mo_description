@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<robot name="fratomo" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find rl_fratomo_description)/urdf/fratomo_base_macro.xacro" />
+  <xacro:include filename="$(find rl_fratomo_description)/urdf/lidar_gazebo_macro.xacro" />
+  <!--<xacro:include filename="$(find rl_fratomo_description)/urdf/d435_gazebo_macro.xacro" />-->
+  
+
+  <xacro:property name="LIDAR" value="True"/>
+  <xacro:property name="DEPTH" value="True"/>
+  
+  <!-- Diff Drive Robot Base  -->
+  <xacro:fratomo_base />
+
+  <!-- LIDAR Sensor -->
+  <xacro:if value="${LIDAR}" > 
+    <xacro:lidar_gazebo_sensor parent="lidar_link" />
+  </xacro:if>
+
+  <!-- RGBD Sensor 
+  <xacro:if value="${DEPTH}" > 
+    <xacro:d435_gazebo_sensor parent="d435_link" />
+  </xacro:if>   -->
+  
+</robot>
