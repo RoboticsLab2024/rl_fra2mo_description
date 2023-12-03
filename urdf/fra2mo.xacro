@@ -3,7 +3,7 @@
 <robot name="fratomo" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find rl_fratomo_description)/urdf/fratomo_base_macro.xacro" />
   <xacro:include filename="$(find rl_fratomo_description)/urdf/lidar_gazebo_macro.xacro" />
-  <!--<xacro:include filename="$(find rl_fratomo_description)/urdf/d435_gazebo_macro.xacro" />-->
+  <!-- <xacro:include filename="$(find rl_fratomo_description)/urdf/d435_gazebo_macro.xacro" /> --> <!-- Uncomment if you want to add also a D435 camera -->
   
 
   <xacro:property name="LIDAR" value="True"/>
@@ -16,7 +16,7 @@
   <xacro:if value="${LIDAR}" > 
     <xacro:lidar_gazebo_sensor parent="lidar_link" />
   </xacro:if>
-
+  <!-- Uncomment if you want to add also a D435 camera -->
   <!-- RGBD Sensor 
   <xacro:if value="${DEPTH}" > 
     <xacro:d435_gazebo_sensor parent="d435_link" />

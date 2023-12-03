@@ -91,9 +91,9 @@
                izz="0.001" />
       </inertial>
     </link>
-
-    <link name="d435_link">
-    </link>
+    <!-- Uncomment if you want to add also a D435 camera -->
+    <!-- <link name="d435_link">
+    </link> -->
 
     <link name="lidar_link">
     </link>
