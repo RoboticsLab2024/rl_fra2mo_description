@@ -29,7 +29,7 @@
         <geometry>
           <mesh filename="file://$(find rl_fra2mo_description)/meshes/rl_fra2mo_body.stl" scale="0.001 0.001 0.001" />
         </geometry>
-        <material name="White" />
+        <material name="Blue" />
         <origin xyz="0 0 0" rpy="0 0 0" />
       </visual>
       <!-- Collision properties -->
@@ -130,7 +130,7 @@
 
     <!-- Gazebo Material Assignments 
     <gazebo reference="base_link">
-      <material>Gazebo/White</material>
+      <material>Gazebo/Blue</material>
     </gazebo>
     <gazebo reference="left_wheel_link">
       <material>Gazebo/Black</material>

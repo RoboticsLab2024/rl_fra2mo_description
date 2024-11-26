@@ -17,7 +17,7 @@ find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 
 # Installa i file necessari
-install(DIRECTORY launch urdf meshes
+install(DIRECTORY launch urdf models meshes worlds
   DESTINATION share/${PROJECT_NAME}
 )
 
