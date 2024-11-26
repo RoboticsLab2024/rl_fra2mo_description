@@ -154,7 +154,7 @@
     <disable_on_drained_battery>true</disable_on_drained_battery>
   </plugin>
   <plugin
-    filename="gz-sim-imu-system"colco
+    filename="gz-sim-imu-system"
     name="gz::sim::systems::Imu">
   </plugin>
   <plugin
