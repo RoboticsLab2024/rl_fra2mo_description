@@ -30,7 +30,7 @@ def generate_launch_description():
         package='robot_state_publisher',
         executable='robot_state_publisher',
         parameters=[robot_description_xacro,
-                    {"use_sim_time": True}
+                    {"use_sim_time": False}
             ]
     )
     
@@ -39,8 +39,6 @@ def generate_launch_description():
         package='joint_state_publisher',
         executable='joint_state_publisher',
     )
-
-    
 
     declared_arguments = []
     declared_arguments.append(DeclareLaunchArgument('gz_args', default_value=world_file,
@@ -63,15 +61,24 @@ def generate_launch_description():
         executable='create',
         output='screen',
         arguments=['-topic', 'robot_description',
-                   '-name', 'arm',
+                   '-name', 'fra2mo',
                    '-allow_renaming', 'true',
                     "-x", str(position[0]),
                     "-y", str(position[1]),
                     "-z", str(position[2]),],
     )
+
+    bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        arguments=['/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist',
+                   '/model/fra2mo/odometry@nav_msgs/msg/Odometry@ignition.msgs.Odometry',
+                   '/lidar@sensor_msgs/msg/LaserScan@ignition.msgs.LaserScan'],
+        output='screen'
+    )
  
     ign = [gazebo_ignition, gz_spawn_entity]
 
-    nodes_to_start = [robot_state_publisher_node, joint_state_publisher_node, *ign]
+    nodes_to_start = [robot_state_publisher_node, joint_state_publisher_node, *ign, bridge]
 
-    return LaunchDescription([SetEnvironmentVariable(name="GZ_SIM_RESOURCE_PATH", value=models_path + ':' + os.environ.get('GZ_SIM_RESOURCE_PATH', ''))] + declared_arguments + nodes_to_start)
+    return LaunchDescription([SetEnvironmentVariable(name="GZ_SIM_RESOURCE_PATH", value = models_path + ':' + os.environ.get('GZ_SIM_RESOURCE_PATH', ''))] + declared_arguments + nodes_to_start)

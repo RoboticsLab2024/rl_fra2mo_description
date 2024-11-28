@@ -139,7 +139,8 @@
       <material>Gazebo/Black</material>
     </gazebo>-->
 
-    <!-- Transmissions 
+    <!-- Transmissions -->
+
     <transmission name="left_wheel_joint_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="left_wheel_joint" />
@@ -155,29 +156,36 @@
         <mechanicalReduction>1</mechanicalReduction>
         <hardwareInterface>EffortJointInterface</hardwareInterface>
       </actuator>
-    </transmission>-->
+    </transmission>
 
-    <!-- Plugin for differential drive control in Gazebo 
+    <!-- Plugin for differential drive control in Gazebo--> 
     <gazebo>
-      <plugin name="gazebo_ros_diff_drive" filename="libgazebo_ros_diff_drive.so" >
-        <ros>
-          <namespace>/</namespace>
-          <remapping>cmd_vel:=/cmd_vel</remapping>
-        </ros>
-        <update_rate>100.0</update_rate>
-        <left_joint>left_wheel_joint</left_joint>
-        <right_joint>right_wheel_joint</right_joint>
-        <wheel_separation>${wheel_axle}</wheel_separation>
-        <wheel_diameter>${2*wheel_radius}</wheel_diameter>
-        <max_wheel_torque>30</max_wheel_torque>
-        <max_wheel_acceleration>1.8</max_wheel_acceleration>
-        <odom_frame>odom</odom_frame>
-        <robot_base_frame>base_footprint</robot_base_frame>
-        <cmd_vel_topic>cmd_vel</cmd_vel_topic>
-        <odometry_topic>odom</odometry_topic>
-        <publish_joint_states>true</publish_joint_states>
+      <plugin name="ignition::gazebo::systems::DiffDrive" filename="libignition-gazebo-diff-drive-system.so">
+      <left_joint>left_wheel_joint</left_joint>
+      <right_joint>right_wheel_joint</right_joint>
+      <wheel_separation>${wheel_axle}</wheel_separation>
+      <wheel_radius>${wheel_radius}</wheel_radius>
+      <max_wheel_torque>30</max_wheel_torque>
+      <max_wheel_acceleration>1.8</max_wheel_acceleration>
+      <odom_publish_frequency>1</odom_publish_frequency>
+      <!--<ros>
+        <namespace>/fra2mo</namespace>
+        <remapping>cmd_vel:=/cmd_vel</remapping>
+      </ros>
+      <update_rate>100.0</update_rate>
+      <left_joint>left_wheel_joint</left_joint>
+      <right_joint>right_wheel_joint</right_joint>
+      <wheel_separation>${wheel_axle}</wheel_separation>
+      <wheel_radius>${wheel_radius}</wheel_radius>
+      <max_wheel_torque>30</max_wheel_torque>
+      <max_wheel_acceleration>1.8</max_wheel_acceleration>
+      <robot_base_frame>base_footprint</robot_base_frame>
+      <robot_base_frame>base_footprint</robot_base_frame>
+      <cmd_vel_topic>cmd_vel</cmd_vel_topic>
+      <odometry_topic>odom</odometry_topic>
+      <publish_joint_states>true</publish_joint_states>-->
       </plugin>
-    </gazebo>-->
+    </gazebo>
 
   </xacro:macro>
 </robot>
