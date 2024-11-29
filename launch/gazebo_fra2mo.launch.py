@@ -30,7 +30,7 @@ def generate_launch_description():
         package='robot_state_publisher',
         executable='robot_state_publisher',
         parameters=[robot_description_xacro,
-                    {"use_sim_time": False}
+                    {"use_sim_time": True}
             ]
     )
     
@@ -73,12 +73,21 @@ def generate_launch_description():
         executable='parameter_bridge',
         arguments=['/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist',
                    '/model/fra2mo/odometry@nav_msgs/msg/Odometry@ignition.msgs.Odometry',
-                   '/lidar@sensor_msgs/msg/LaserScan@ignition.msgs.LaserScan'],
+                   '/model/fra2mo/tf@tf2_msgs/msg/TFMessage@ignition.msgs.Pose_V',
+                   '/lidar@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan',
+                   '/lidar/points@sensor_msgs/msg/PointCloud2[ignition.msgs.PointCloudPacked'], # necessary otherwise the laser scan message is not seen
         output='screen'
     )
+
+    laser_id_link_tf = Node(package='tf2_ros',
+                     executable='static_transform_publisher',
+                     name='lidar_TF',
+                     output='log',
+                     arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'laser_frame', 'fra2mo/base_footprint/laser_frame'])
+
  
     ign = [gazebo_ignition, gz_spawn_entity]
 
-    nodes_to_start = [robot_state_publisher_node, joint_state_publisher_node, *ign, bridge]
+    nodes_to_start = [robot_state_publisher_node, joint_state_publisher_node, *ign, bridge, laser_id_link_tf]
 
     return LaunchDescription([SetEnvironmentVariable(name="GZ_SIM_RESOURCE_PATH", value = models_path + ':' + os.environ.get('GZ_SIM_RESOURCE_PATH', ''))] + declared_arguments + nodes_to_start)

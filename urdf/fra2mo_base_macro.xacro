@@ -92,7 +92,8 @@
     </link>
 
     <!-- Additional Links -->
-    <link name="d435_link" />
+    <link name="d435_link">
+    </link>
     <link name="lidar_link" />
 
     <!-- Joints -->
@@ -161,13 +162,14 @@
     <!-- Plugin for differential drive control in Gazebo--> 
     <gazebo>
       <plugin name="ignition::gazebo::systems::DiffDrive" filename="libignition-gazebo-diff-drive-system.so">
-      <left_joint>left_wheel_joint</left_joint>
-      <right_joint>right_wheel_joint</right_joint>
-      <wheel_separation>${wheel_axle}</wheel_separation>
-      <wheel_radius>${wheel_radius}</wheel_radius>
-      <max_wheel_torque>30</max_wheel_torque>
-      <max_wheel_acceleration>1.8</max_wheel_acceleration>
-      <odom_publish_frequency>1</odom_publish_frequency>
+        <left_joint>left_wheel_joint</left_joint>
+        <right_joint>right_wheel_joint</right_joint>
+        <wheel_separation>${2*base_radius}</wheel_separation>
+        <wheel_radius>${wheel_radius}</wheel_radius>
+        <odom_publish_frequency>10</odom_publish_frequency>
+        <topic>cmd_vel</topic>
+        <!--<robotBaseFrame>base_footprint</robotBaseFrame>-->
+        <ignition_frame_id>base_footprint</ignition_frame_id>
       <!--<ros>
         <namespace>/fra2mo</namespace>
         <remapping>cmd_vel:=/cmd_vel</remapping>

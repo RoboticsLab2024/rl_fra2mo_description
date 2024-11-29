@@ -184,12 +184,7 @@
     filename="gz-sim-air-pressure-system"
     name="gz::sim::systems::AirPressure">
   </plugin>-->  
-  <plugin filename="ignition-gazebo-sensors-system" 
-  name="ignition::gazebo::systems::Sensors">
-    <render_engine>ogre2</render_engine>
-    <ignition_frame_id>laser_frame</ignition_frame_id>
-  </plugin>
-
+  
   </world>
 </sdf>
 
