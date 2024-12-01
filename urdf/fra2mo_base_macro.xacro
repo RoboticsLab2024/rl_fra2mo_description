@@ -166,15 +166,8 @@
         <right_joint>right_wheel_joint</right_joint>
         <wheel_separation>${2*base_radius}</wheel_separation>
         <wheel_radius>${wheel_radius}</wheel_radius>
-        <odom_publish_frequency>10</odom_publish_frequency>
         <topic>cmd_vel</topic>
-        <!--<robotBaseFrame>base_footprint</robotBaseFrame>-->
-        <ignition_frame_id>base_footprint</ignition_frame_id>
-      <!--<ros>
-        <namespace>/fra2mo</namespace>
-        <remapping>cmd_vel:=/cmd_vel</remapping>
-      </ros>
-      <update_rate>100.0</update_rate>
+      <!--<update_rate>100.0</update_rate>
       <left_joint>left_wheel_joint</left_joint>
       <right_joint>right_wheel_joint</right_joint>
       <wheel_separation>${wheel_axle}</wheel_separation>

@@ -74,8 +74,8 @@ def generate_launch_description():
         arguments=['/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist',
                    '/model/fra2mo/odometry@nav_msgs/msg/Odometry@ignition.msgs.Odometry',
                    '/model/fra2mo/tf@tf2_msgs/msg/TFMessage@ignition.msgs.Pose_V',
-                   '/lidar@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan',
-                   '/lidar/points@sensor_msgs/msg/PointCloud2[ignition.msgs.PointCloudPacked'], # necessary otherwise the laser scan message is not seen
+                   '/lidar@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan'],
+                   #'/lidar/points@sensor_msgs/msg/PointCloud2[ignition.msgs.PointCloudPacked'], 
         output='screen'
     )
 
