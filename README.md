@@ -2,12 +2,21 @@
 
 This repo provides URDF files and launch files to simulate a differential drive robot
 
-## Dependencies
-1 - Gazebo
 ```bash
-sudo apt-get install ros-<DISTRO>-gazebo-ros ros-<DISTRO>-gazebo-ros-pkgs ros-<DISTRO>-gazebo-ros-control
+colcon build --packages-select rl_fra2mo_description
+. install/setup.bash
+  ``` 
+## Visualize on Rviz
+```bash
+ros2 launch rl_fra2mo_description display_fra2mo.launch.py
   ```
-2 - To get the Intel Realsense description (OPTIONAL)
+  
+## Visualize on Rviz
 ```bash
-sudo apt-get install ros-<DISTRO>-realsense2-description 
+ros2 launch rl_fra2mo_description gazebo_fra2mo.launch.py
+  ```
+  
+## Send velocity command
+```bash
+ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.2}, angular: {z: 0.2}}"
   ```
