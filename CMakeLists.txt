@@ -18,9 +18,15 @@ find_package(xacro REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 
+add_executable(dynamic_tf_publisher src/odom_bl_tf.cpp)
+ament_target_dependencies(dynamic_tf_publisher rclcpp nav_msgs geometry_msgs tf2 tf2_ros)
+
 # Installa i file necessari
-install(DIRECTORY launch urdf models meshes worlds
+install(DIRECTORY launch urdf models meshes worlds config
   DESTINATION share/${PROJECT_NAME}
+)
+install(TARGETS dynamic_tf_publisher 
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 ament_package()

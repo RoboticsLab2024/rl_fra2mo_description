@@ -79,15 +79,30 @@ def generate_launch_description():
         output='screen'
     )
 
+    odom_tf = Node(
+        package='rl_fra2mo_description',
+        executable='dynamic_tf_publisher',
+        name='odom_tf'
+    )
+
     laser_id_link_tf = Node(package='tf2_ros',
                      executable='static_transform_publisher',
                      name='lidar_TF',
                      output='log',
-                     arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'laser_frame', 'fra2mo/base_footprint/laser_frame'])
+                     arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'laser_frame', 'fra2mo/base_footprint/laser_frame']
+    )
+
+    robot_localization_node = Node(
+       package='robot_localization',
+       executable='ekf_node',
+       name='ekf_filter_node',
+       output='screen',
+       parameters=[os.path.join(get_package_share_directory('rl_fra2mo_description'), "config/ekf.yaml")]
+    )
+ 
 
  
     ign = [gazebo_ignition, gz_spawn_entity]
-
-    nodes_to_start = [robot_state_publisher_node, joint_state_publisher_node, *ign, bridge, laser_id_link_tf]
+    nodes_to_start = [robot_state_publisher_node, joint_state_publisher_node, *ign, bridge, odom_tf, laser_id_link_tf, robot_localization_node]
 
     return LaunchDescription([SetEnvironmentVariable(name="GZ_SIM_RESOURCE_PATH", value = models_path + ':' + os.environ.get('GZ_SIM_RESOURCE_PATH', ''))] + declared_arguments + nodes_to_start)

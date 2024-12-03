@@ -167,18 +167,6 @@
         <wheel_separation>${2*base_radius}</wheel_separation>
         <wheel_radius>${wheel_radius}</wheel_radius>
         <topic>cmd_vel</topic>
-      <!--<update_rate>100.0</update_rate>
-      <left_joint>left_wheel_joint</left_joint>
-      <right_joint>right_wheel_joint</right_joint>
-      <wheel_separation>${wheel_axle}</wheel_separation>
-      <wheel_radius>${wheel_radius}</wheel_radius>
-      <max_wheel_torque>30</max_wheel_torque>
-      <max_wheel_acceleration>1.8</max_wheel_acceleration>
-      <robot_base_frame>base_footprint</robot_base_frame>
-      <robot_base_frame>base_footprint</robot_base_frame>
-      <cmd_vel_topic>cmd_vel</cmd_vel_topic>
-      <odometry_topic>odom</odometry_topic>
-      <publish_joint_states>true</publish_joint_states>-->
       </plugin>
     </gazebo>
 
