@@ -87,9 +87,16 @@ def generate_launch_description():
 
     laser_id_link_tf = Node(package='tf2_ros',
                      executable='static_transform_publisher',
-                     name='lidar_TF',
+                     name='lidar_staticTF',
                      output='log',
                      arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'laser_frame', 'fra2mo/base_footprint/laser_frame']
+    )
+
+    map_id_link_tf = Node(package='tf2_ros',
+                     executable='static_transform_publisher',
+                     name='map_TF',
+                     output='log',
+                     arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'map', 'fra2mo/odom']
     )
 
     robot_localization_node = Node(
@@ -103,6 +110,7 @@ def generate_launch_description():
 
  
     ign = [gazebo_ignition, gz_spawn_entity]
-    nodes_to_start = [robot_state_publisher_node, joint_state_publisher_node, *ign, bridge, odom_tf, laser_id_link_tf, robot_localization_node]
+    nodes_to_start = [robot_state_publisher_node, joint_state_publisher_node, *ign, bridge, 
+                      odom_tf, laser_id_link_tf, map_id_link_tf, robot_localization_node]
 
     return LaunchDescription([SetEnvironmentVariable(name="GZ_SIM_RESOURCE_PATH", value = models_path + ':' + os.environ.get('GZ_SIM_RESOURCE_PATH', ''))] + declared_arguments + nodes_to_start)
