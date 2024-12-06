@@ -11,7 +11,7 @@
                 model://unknown_obst_3/mesh/unknown_obst_wall.stl
               </uri>
               <scale>
-                0.001 0.001 0.001
+                0.001 0.001 0.003
               </scale>
             </mesh>
         </geometry>
@@ -24,7 +24,7 @@
                 model://unknown_obst_3/mesh/unknown_obst_wall.stl
               </uri>
               <scale>
-                0.001 0.001 0.001
+                0.001 0.001 0.003
               </scale>
             </mesh>
         </geometry>

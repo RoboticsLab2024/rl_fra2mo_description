@@ -34,7 +34,7 @@
 
     <gazebo reference="laser_frame">
       <sensor name="laser_frame" type="gpu_lidar">
-          <pose relative_to="laser_frame">0 0 0 0 0 0</pose>
+          <!--<pose relative_to="laser_frame">0 0 0 0 0 0</pose>--> <!--TO LOOK-->
           <topic>lidar</topic>
           <update_rate>10</update_rate>
           <ray>
@@ -58,17 +58,23 @@
                   <resolution>0.01</resolution>
               </range>
           </ray>
-          <always_on>1</always_on>
-          <visualize>true</visualize>
-         <ignition_frame_id>fra2mo::base_footprint::laser_frame</ignition_frame_id>
+          <always_on>false</always_on>
+          <visualize>false</visualize>
+          <frame_id>laser_frame</frame_id> <!--TO LOOK-->
+          <ignition_frame_id>fra2mo::base_footprint::laser_frame</ignition_frame_id>
       </sensor>
   </gazebo>
 
-  <gazebo>
+  <!--TO LOOK-->
+  <!--<gazebo> 
     <plugin filename="libignition-gazebo-sensors-system.so" 
       name="ignition::gazebo::systems::Sensors"> 
         <render_engine>ogre2</render_engine>
     </plugin>  
+  </gazebo>-->
+
+  <gazebo>
+  <plugin filename="ignition-gazebo-sensors-system" name="gz::sim::systems::Sensors" />
   </gazebo>
 
   </xacro:macro>

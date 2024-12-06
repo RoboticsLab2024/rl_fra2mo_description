@@ -25,6 +25,9 @@ def generate_launch_description():
     # Genera la descrizione del robot usando xacro
     robot_description_xacro = {"robot_description": ParameterValue(Command(['xacro ', xacro]),value_type=str)}
     
+    # use_sim_time_arg = DeclareLaunchArgument(
+    #     'use_sim_time', default_value='true', description='Use simulation/Gazebo clock')
+
     # Nodo robot_state_publisher
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
@@ -38,6 +41,7 @@ def generate_launch_description():
     joint_state_publisher_node = Node(
         package='joint_state_publisher',
         executable='joint_state_publisher',
+        parameters=[{"use_sim_time": True}]
     )
 
     declared_arguments = []
@@ -65,7 +69,7 @@ def generate_launch_description():
                    '-allow_renaming', 'true',
                     "-x", str(position[0]),
                     "-y", str(position[1]),
-                    "-z", str(position[2]),],
+                    "-z", str(position[2]),]
     )
 
     bridge = Node(
@@ -74,7 +78,8 @@ def generate_launch_description():
         arguments=['/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist',
                    '/model/fra2mo/odometry@nav_msgs/msg/Odometry@ignition.msgs.Odometry',
                    '/model/fra2mo/tf@tf2_msgs/msg/TFMessage@ignition.msgs.Pose_V',
-                   '/lidar@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan'],
+                   '/lidar@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan',
+                   '/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock'],
                    #'/lidar/points@sensor_msgs/msg/PointCloud2[ignition.msgs.PointCloudPacked'], 
         output='screen'
     )
@@ -82,22 +87,37 @@ def generate_launch_description():
     odom_tf = Node(
         package='rl_fra2mo_description',
         executable='dynamic_tf_publisher',
-        name='odom_tf'
+        name='odom_tf',
+        parameters=[{"use_sim_time": True}]
     )
 
     laser_id_link_tf = Node(package='tf2_ros',
                      executable='static_transform_publisher',
                      name='lidar_staticTF',
                      output='log',
-                     arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'laser_frame', 'fra2mo/base_footprint/laser_frame']
+                     arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'laser_frame', 'fra2mo/base_footprint/laser_frame'],
+                     parameters=[{"use_sim_time": True}]
     )
 
-    map_id_link_tf = Node(package='tf2_ros',
-                     executable='static_transform_publisher',
-                     name='map_TF',
-                     output='log',
-                     arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'map', 'fra2mo/odom']
+    relay_odom = Node(
+        name="relay_odom",
+        package="topic_tools",
+        executable="relay",
+        parameters=[
+            {
+                "input_topic": "/model/fra2mo/tf",
+                "output_topic": "/tf",
+            }
+        ],
+        output="screen",
     )
+
+    # map_id_link_tf = Node(package='tf2_ros',
+    #                  executable='static_transform_publisher',
+    #                  name='map_TF',
+    #                  output='log',
+    #                  arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'map', 'fra2mo/odom']
+    # )
 
     robot_localization_node = Node(
        package='robot_localization',
@@ -106,11 +126,24 @@ def generate_launch_description():
        output='screen',
        parameters=[os.path.join(get_package_share_directory('rl_fra2mo_description'), "config/ekf.yaml")]
     )
+
+    ign_clock_bridge = Node(
+        package="ros_gz_bridge",
+        executable="parameter_bridge",
+        name="ros_gz_bridge",
+        arguments=["/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock"],
+        remappings=[
+            ("/tf", "tf"),
+            ("/tf_static", "tf_static"),
+        ],
+        output="screen",
+        namespace="fra2mo"
+    )
  
 
  
     ign = [gazebo_ignition, gz_spawn_entity]
     nodes_to_start = [robot_state_publisher_node, joint_state_publisher_node, *ign, bridge, 
-                      odom_tf, laser_id_link_tf, map_id_link_tf, robot_localization_node]
+                      odom_tf, laser_id_link_tf, ign_clock_bridge]
 
     return LaunchDescription([SetEnvironmentVariable(name="GZ_SIM_RESOURCE_PATH", value = models_path + ':' + os.environ.get('GZ_SIM_RESOURCE_PATH', ''))] + declared_arguments + nodes_to_start)

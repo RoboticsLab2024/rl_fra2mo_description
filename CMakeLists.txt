@@ -22,7 +22,7 @@ add_executable(dynamic_tf_publisher src/odom_bl_tf.cpp)
 ament_target_dependencies(dynamic_tf_publisher rclcpp nav_msgs geometry_msgs tf2 tf2_ros)
 
 # Installa i file necessari
-install(DIRECTORY launch urdf models meshes worlds config src
+install(DIRECTORY launch urdf models meshes worlds config src maps
   DESTINATION share/${PROJECT_NAME}
 )
 install(TARGETS dynamic_tf_publisher
