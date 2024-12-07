@@ -99,26 +99,6 @@ def generate_launch_description():
                      parameters=[{"use_sim_time": True}]
     )
 
-    relay_odom = Node(
-        name="relay_odom",
-        package="topic_tools",
-        executable="relay",
-        parameters=[
-            {
-                "input_topic": "/model/fra2mo/tf",
-                "output_topic": "/tf",
-            }
-        ],
-        output="screen",
-    )
-
-    # map_id_link_tf = Node(package='tf2_ros',
-    #                  executable='static_transform_publisher',
-    #                  name='map_TF',
-    #                  output='log',
-    #                  arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'map', 'fra2mo/odom']
-    # )
-
     robot_localization_node = Node(
        package='robot_localization',
        executable='ekf_node',
@@ -139,8 +119,6 @@ def generate_launch_description():
         output="screen",
         namespace="fra2mo"
     )
- 
-
  
     ign = [gazebo_ignition, gz_spawn_entity]
     nodes_to_start = [robot_state_publisher_node, joint_state_publisher_node, *ign, bridge, 
