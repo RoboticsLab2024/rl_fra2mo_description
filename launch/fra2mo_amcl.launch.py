@@ -11,7 +11,7 @@ def generate_launch_description():
     map_file = LaunchConfiguration("map_file")
 
     use_sim_time_arg = DeclareLaunchArgument(
-        "use_sim_time", default_value="false", description="Use simulation/Gazebo clock"
+        "use_sim_time", default_value="true", description="Use simulation/Gazebo clock"
     )
 
     map_file_arg = DeclareLaunchArgument(

@@ -22,10 +22,16 @@ add_executable(dynamic_tf_publisher src/odom_bl_tf.cpp)
 ament_target_dependencies(dynamic_tf_publisher rclcpp nav_msgs geometry_msgs tf2 tf2_ros)
 
 # Installa i file necessari
-install(DIRECTORY launch urdf models meshes worlds config src maps
+install(DIRECTORY launch urdf models meshes worlds config src maps scripts
   DESTINATION share/${PROJECT_NAME}
 )
 install(TARGETS dynamic_tf_publisher
+  DESTINATION lib/${PROJECT_NAME}
+)
+# Install Python executables
+install(PROGRAMS
+  scripts/reach_goal.py
+  scripts/follow_waypoints.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

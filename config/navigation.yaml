@@ -195,8 +195,8 @@ local_costmap:
     ros__parameters:
       use_sim_time: True
 
-      update_frequency: 5.0
-      publish_frequency: 2.0
+      update_frequency: 10.0
+      publish_frequency: 10.0
       global_frame: fra2mo/odom
       robot_base_frame: base_footprint
 
@@ -247,8 +247,8 @@ global_costmap:
     ros__parameters:
       use_sim_time: True
 
-      update_frequency: 1.0
-      publish_frequency: 1.0
+      update_frequency: 10.0
+      publish_frequency: 10.0
       global_frame: map
       robot_base_frame: base_footprint
 
@@ -264,8 +264,8 @@ global_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         enabled: True
-        inflation_radius: 0.1
-        cost_scaling_factor: 10.0
+        inflation_radius: 0.75
+        cost_scaling_factor: 2.0
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
