@@ -11,7 +11,7 @@ slam:
     # ROS Parameters
     odom_frame: fra2mo/odom
     map_frame: map
-    base_frame: base_link
+    base_frame: base_footprint
     scan_topic: /lidar #/scan
     mode: mapping #localization
 
