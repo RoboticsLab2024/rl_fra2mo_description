@@ -11,7 +11,7 @@ colcon build --packages-select rl_fra2mo_description
 ros2 launch rl_fra2mo_description display_fra2mo.launch.py
   ```
   
-## Visualize on Rviz
+## Start Gazebo simulation
 ```bash
 ros2 launch rl_fra2mo_description gazebo_fra2mo.launch.py
   ```
