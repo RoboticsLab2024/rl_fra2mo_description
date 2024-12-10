@@ -32,7 +32,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
   ```
   
 ## Save map
-Create a ```maps``` folder and add it to the ```CMakeLists.txt```, isnide the folder run
+Create a ```maps``` folder and add it to the ```CMakeLists.txt```, inside the folder run
 ```bash
 ros2 run nav2_map_server map_saver_cli -f map
   ```
