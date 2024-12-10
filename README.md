@@ -29,7 +29,8 @@ ros2 launch rl_fra2mo_description fra2mo_slam.launch.py
 ## Sending velocity commands using keybord
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
-
+  ```
+  
 ## Save map
 Create a ```bash maps``` folder and add it to the ```bash CMakeLists.txt```, isnide the folder run
 ```bash
